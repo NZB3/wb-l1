@@ -1,42 +1,30 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
-func makeChan(nums ...int) <-chan int {
+func sqNums(nums ...int) <-chan int {
+	wg := sync.WaitGroup{}
 	ch := make(chan int)
-
 	go func() {
+
 		for _, n := range nums {
-			ch <- n
+			wg.Add(1)
+			go func(n int) {
+				ch <- n * n
+				wg.Done()
+			}(n)
 		}
-		close(ch)
-	}()
-
-	return ch
-}
-
-func square(n int) <-chan int {
-	ch := make(chan int)
-	go func() {
-		ch <- n * n
-	}()
-	return ch
-}
-
-func sqNums(nums <-chan int) <-chan int {
-	ch := make(chan int)
-	go func() {
-		for n := range nums {
-			ch <- <-square(n)
-		}
+		wg.Wait()
 		close(ch)
 	}()
 	return ch
 }
 
 func main() {
-	nums := makeChan(2, 4, 6, 8, 10)
-	sqNums := sqNums(nums)
+	sqNums := sqNums(2, 4, 6, 8, 10)
 	sum := 0
 	for n := range sqNums {
 		sum += n
