@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"sync"
-	"time"
 )
 
 type worker struct {
@@ -48,7 +47,6 @@ func dataSender(ctx context.Context) <-chan int {
 				return
 			default:
 				ch <- i
-				time.Sleep(time.Second)
 			}
 		}
 
