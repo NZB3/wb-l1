@@ -1,2 +1,6 @@
+github.com/nzb3/measure v0.0.0-20230731093436-0719e1accfee h1:ylbtTb/O23udROvXs3xag8+LVhdrh1jmhSNBh5eezw8=
+github.com/nzb3/measure v0.0.0-20230731093436-0719e1accfee/go.mod h1:7F8OtBkY+vhs1Xi5zyLhweRcoaf1whm9GyrUb3WacUc=
 github.com/nzb3/randgen v0.0.0-20230728153103-973d59e8f981 h1:yJQvmscNv3dI71ncyND9D6uF6OwW96Gtkc0LKAY+HoM=
 github.com/nzb3/randgen v0.0.0-20230728153103-973d59e8f981/go.mod h1:uC0PNTntt0BEKfTY9IRq9E57IvxrjnKARnlvOYIAlcQ=
+golang.org/x/tools v0.11.0 h1:EMCa6U9S2LtZXLAMoWiR/R8dAQFRqbAitmbJ2UKhoi8=
+golang.org/x/tools v0.11.0/go.mod h1:anzJrxPjNtfgiYQYirP2CPGzGLxrH2u2QBhn6Bf3qY8=

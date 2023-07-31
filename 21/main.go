@@ -22,7 +22,6 @@ func (a Adapter) Method1() {
 }
 
 func main() {
-	var t1 Type1
-	t1 = Adapter{}
+	t1 := Type1(Adapter{})
 	t1.Method1()
 }

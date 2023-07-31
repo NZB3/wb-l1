@@ -4,15 +4,25 @@ import (
 	"fmt"
 	"sort"
 
+	"github.com/nzb3/measure"
 	"github.com/nzb3/randgen"
 )
 
 func main() {
-	arr := randgen.GenArrayInt(100, 100)
+	var size int
+	fmt.Scan(&size)
+
+	arr := randgen.GenArrayInt(size, size)
 	sort.Ints(arr)
 
 	fmt.Println(arr)
-	fmt.Println(BinSearch(arr, 10))
+
+	var target int
+	fmt.Scan(&target)
+
+	measure.Measure(func() {
+		fmt.Println(BinSearch(arr, target))
+	})
 }
 
 func BinSearch(arr []int, target int) int {

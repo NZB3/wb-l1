@@ -7,9 +7,9 @@ import (
 func main() {
 	set1 := []string{"cat", "cat", "dog", "cat", "tree"}
 
-	m := make(map[string]int, len(set1))
+	m := make(map[string]struct{}, len(set1))
 	for _, v := range set1 {
-		m[v]++
+		m[v] = struct{}{}
 	}
 
 	var selfSet []string

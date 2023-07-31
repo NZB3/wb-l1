@@ -9,7 +9,6 @@ func sqNums(nums ...int) <-chan int {
 	wg := sync.WaitGroup{}
 	ch := make(chan int)
 	go func() {
-
 		for _, n := range nums {
 			wg.Add(1)
 			go func(n int) {

@@ -10,9 +10,10 @@ type Counter struct {
 }
 
 func main() {
-	c := Counter{}
 	wg := sync.WaitGroup{}
 	mu := sync.Mutex{}
+
+	c := Counter{}
 	for i := 0; i < 1000; i++ {
 		wg.Add(1)
 		go func() {

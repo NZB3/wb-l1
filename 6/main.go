@@ -8,7 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Choose option to stop gorutine:")
-	fmt.Println("1. Close done channel")
+	fmt.Println("1. Close 'stop' channel")
 	fmt.Println("2. Call cancel function")
 	fmt.Println("3. Stop main gorutine")
 	fmt.Print("Your choice: ")
@@ -16,8 +16,8 @@ func main() {
 	fmt.Scan(&choice)
 
 	ctx := context.Background()
-	stop := make(chan bool)
-	done := make(chan bool)
+	stop := make(chan struct{})
+	done := make(chan struct{})
 
 	ctx, cancel := context.WithCancel(ctx)
 	go func() {
@@ -27,11 +27,11 @@ func main() {
 			select {
 			case <-ctx.Done():
 				fmt.Println("context clanceled")
-				done <- true
+				done <- struct{}{}
 				return
 			case <-stop:
 				fmt.Println("stop channel closed")
-				done <- true
+				done <- struct{}{}
 				return
 			}
 		}

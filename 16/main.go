@@ -2,15 +2,23 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/nzb3/randgen"
 )
 
 func main() {
-	arr := randgen.GenArrayInt(100000, 100000)
+	var size int
+	fmt.Scan(&size)
+	arr := randgen.GenArrayInt(size, size)
+
+	start := time.Now()
 	arr = QuickSort(arr)
+	time := time.Since(start)
 
 	fmt.Println(arr)
+	fmt.Println(time)
+
 }
 
 func QuickSort(arr []int) []int {
@@ -19,9 +27,10 @@ func QuickSort(arr []int) []int {
 	}
 
 	pivot := arr[int(len(arr)/2)]
-	left := make([]int, 0)
-	right := make([]int, 0)
-	equal := make([]int, 0)
+	left := make([]int, 0, cap(arr)/2)
+	right := make([]int, 0, cap(arr)/2)
+	equal := make([]int, 0, 1)
+
 	for _, num := range arr {
 		if num < pivot {
 			left = append(left, num)

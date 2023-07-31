@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	mu := sync.Mutex{}
+	mu := sync.RWMutex{}
 	wg := sync.WaitGroup{}
 
 	set1 := randgen.GenArrayInt(10, 10)
@@ -17,29 +17,41 @@ func main() {
 	fmt.Println(set2)
 
 	m := make(map[int][2]bool, len(set1))
+
 	wg.Add(2)
 	go func() {
+		defer wg.Done()
+
 		for _, n := range set1 {
-			if [2]bool{true, true} == m[n] {
+			mu.RLock()
+			if m[n] == [2]bool{true, true} {
+				mu.RUnlock()
 				continue
 			}
+			mu.RUnlock()
+
 			mu.Lock()
 			m[n] = [2]bool{true, m[n][1]}
 			mu.Unlock()
 		}
-		wg.Done()
-	}()
 
+	}()
 	go func() {
+		defer wg.Done()
+
 		for _, n := range set2 {
-			if [2]bool{true, true} == m[n] {
+			mu.RLock()
+			if m[n] == [2]bool{true, true} {
+				mu.RUnlock()
 				continue
 			}
+			mu.RUnlock()
+
 			mu.Lock()
 			m[n] = [2]bool{m[n][0], true}
 			mu.Unlock()
 		}
-		wg.Done()
+
 	}()
 
 	wg.Wait()
